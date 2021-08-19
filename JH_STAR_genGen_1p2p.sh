@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=8	                                          #Number of cores per task
 #SBATCH --mem=24gb			                                            #Total memory for job
 #SBATCH --time=48:00:00  		                                        #Time limit hrs:min:sec
-#SBATCH --output=/scratch/ahw22099/JH_GyneWorker/UNIL_Sinv_3.0/log.%j			    #Standard output
-#SBATCH --error=/scratch/ahw22099/JH_GyneWorker/UNIL_Sinv_3.0/err.%j			    #Standard error log
+#SBATCH --output=/scratch/ahw22099/JH_GyneWorker/STAR/2p_out/log.%j			    #Standard output
+#SBATCH --error=/scratch/ahw22099/JH_GyneWorker/STAR/2p_out/err.%j			    #Standard error log
 #SBATCH --mail-user=ahw22099@uga.edu                                #Where to send mail -
 #SBATCH --mail-type=END,FAIL                                        #Mail events (BEGIN, END, FAIL, ALL)
 
@@ -26,7 +26,7 @@ SINV_GENOME="/scratch/ahw22099/JH_GyneWorker/UNIL_Sinv_3.0"
 ################## STAR ##################
 
 module load STAR/2.7.2b-GCC-8.3.0
-##GENOME GENERATE
+#GENOME GENERATE
 time STAR \
 --runMode genomeGenerate \
 --runThreadN 8 \
@@ -102,7 +102,7 @@ zcat --runThreadN 8 \
 --outSAMtype BAM SortedByCoordinate \
 --outSAMstrandField intronMotif \
 --outSAMattrIHstart 0 \
---outFileNamePrefix /scratch/ahw22099/OWSF/STAR/2p_out/"$file".2pass. \
+--outFileNamePrefix /scratch/ahw22099/JH_GyneWorker/STAR/2p_out/"$file".2pass. \
 --limitBAMsortRAM 15000000000 \
 --sjdbFileChrStartEnd \
 $FirstPass/SRR7209532_trimmed.fq.gz.1pass.SJ.out.tab \
@@ -124,7 +124,7 @@ $FirstPass/SRR7209547_trimmed.fq.gz.1pass.SJ.out.tab \
 $FirstPass/SRR7209548_trimmed.fq.gz.1pass.SJ.out.tab \
 $FirstPass/SRR7209549_trimmed.fq.gz.1pass.SJ.out.tab \
 $FirstPass/SRR7209550_trimmed.fq.gz.1pass.SJ.out.tab \
-$FirstPass/SRR7209551_trimmed.fq.gz.1pass.SJ.out.tab \
+$FirstPass/SRR7209551_trimmed.fq.gz.1pass.SJ.out.tab
 }
 run_STAR_2p $file
 done
